@@ -1,0 +1,69 @@
+# ── Dependencies ──
+node_modules
+.pnpm-store
+
+# ── Build outputs ──
+.next
+.turbo
+dist
+build
+coverage
+out
+
+# ── Environment ──
+.env
+.env.*
+!.env.example
+
+# ── Markdown docs (keep README only) ──
+*.md
+!README.md
+
+# ── Documents & media ──
+*.pdf
+*.pptx
+*.ppt
+*.docx
+*.doc
+*.xlsx
+*.xls
+
+# ── Images (generated/local) ──
+images/
+
+# ── Design files ──
+*.pen
+
+# ── Solana / Anchor ──
+.anchor
+packages/contracts/target/
+test-ledger/
+
+# ── Rust ──
+*.so
+.rustc_info.json
+
+# ── OS files ──
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ── Editor / IDE ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Logs ──
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Misc ──
+supabase/.temp
+.agents/
+skills-lock.json
+*.tsbuildinfo

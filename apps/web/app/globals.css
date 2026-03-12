@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+/* ── Brutalist-Precision Dark Design System ── */
+
+:root {
+  --background: #050505;
+  --surface: #0F0F11;
+  --foreground: #FFFFFF;
+  --border: rgba(255, 255, 255, 0.10);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --cobalt: #0047FF;
+  --cobalt-hover: #0035CC;
+  --terminal-green: #00FF41;
+  --steel: #707070;
+  --steel-dim: rgba(112, 112, 112, 0.60);
+  --yellow-risk: #FACC15;
+  --red-risk: #F87171;
+}
+
+/* ── Global Reset ── */
+
+* {
+  box-sizing: border-box;
+  border-radius: 0 !important;
+}
+
+*,
+*::before,
+*::after {
+  transition-property: none !important;
+  transition-duration: 0s !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-display), Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+/* ── Selection ── */
+
+::selection {
+  background: var(--cobalt);
+  color: #FFFFFF;
+}
+
+/* ── Scrollbar ── */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--steel);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cobalt);
+}
+
+/* ── Typography Utilities ── */
+
+.font-mono {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace !important;
+}
+
+.font-display {
+  font-family: var(--font-display), Inter, sans-serif !important;
+}
+
+.label {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.micro-label {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--steel-dim);
+}
+
+/* ── Layout ── */
+
+.peer-container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1400px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .peer-container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .peer-container {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+}
+
+/* ── Surface Cards ── */
+
+.peer-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.peer-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .peer-grid.cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ── Dividers ── */
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  width: 100%;
+}
+
+.divider-subtle {
+  height: 1px;
+  background: var(--border-subtle);
+  width: 100%;
+}
+
+/* ── Stat Number ── */
+
+.stat-number {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .stat-number {
+    font-size: 32px;
+  }
+}
+
+/* ── Section heading ── */
+
+.section-heading {
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+@media (min-width: 768px) {
+  .section-heading {
+    font-size: 56px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-heading {
+    font-size: 64px;
+  }
+}
+
+/* ── Hero heading ── */
+
+.hero-heading {
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+@media (min-width: 768px) {
+  .hero-heading {
+    font-size: 72px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-heading {
+    font-size: 88px;
+  }
+}

@@ -1,0 +1,9 @@
+export { TopBar } from "./top-bar";
+export { HeroSection } from "./hero-section";
+export { ProtocolStats } from "./protocol-stats";
+export { LiquidityWave } from "./liquidity-wave";
+export { FeaturesSection } from "./features-section";
+export { HowItWorks } from "./how-it-works";
+export { SecuritySection } from "./security-section";
+export { CTASection } from "./cta-section";
+export { Footer } from "./footer";

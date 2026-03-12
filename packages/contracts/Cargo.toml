@@ -1,0 +1,18 @@
+[workspace]
+members = [
+  "programs/peersaku-lending",
+  "programs/peersaku-credit"
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+authors = ["PeerSaku"]
+
+[workspace.dependencies]
+anchor-lang = "0.31.1"
+anchor-spl = "0.31.1"
+
+[profile.release]
+overflow-checks = true

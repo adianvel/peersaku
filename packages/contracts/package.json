@@ -1,0 +1,21 @@
+{
+  "name": "@peersaku/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "node -e \"console.log('Install Anchor CLI before building contracts.')\"",
+    "test": "node -e \"console.log('Install Anchor CLI before testing contracts.')\"",
+    "test:anchor": "anchor test",
+    "lint": "node -e \"console.log('Rust lint step will be enabled after Anchor toolchain setup.')\"",
+    "typecheck": "node -e \"console.log('Contract scaffold ready. Install Anchor CLI for validation.')\"",
+    "format": "node -e \"console.log('Rust formatting will be enabled after Anchor toolchain setup.')\""
+  },
+  "devDependencies": {
+    "@coral-xyz/anchor": "^0.31.1",
+    "@types/mocha": "^10.0.10",
+    "mocha": "^11.1.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.8.2"
+  }
+}
