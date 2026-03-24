@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 
-import { phase2MockDb } from "@/lib/server/mock-db";
+import { dbService } from "@/lib/server/db-service";
 
 export async function GET() {
+  const submissions = await dbService.listKtmSubmissions();
   return NextResponse.json({
     ok: true,
-    data: phase2MockDb.listKtmSubmissions(),
+    data: submissions,
   });
 }

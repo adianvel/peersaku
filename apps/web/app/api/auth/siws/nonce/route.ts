@@ -3,7 +3,7 @@ import { randomBytes } from "node:crypto";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { phase2MockDb } from "@/lib/server/mock-db";
+import { dbService } from "@/lib/server/db-service";
 
 const nonceSchema = z.object({
   walletAddress: z.string().min(32).max(64),
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   }
 
   const nonce = randomBytes(16).toString("hex");
-  phase2MockDb.setSiwsNonce(parsed.data.walletAddress, nonce);
+  await dbService.setSiwsNonce(parsed.data.walletAddress, nonce);
 
   return NextResponse.json({
     ok: true,

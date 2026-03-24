@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { phase2MockDb } from "@/lib/server/mock-db";
+import { dbService } from "@/lib/server/db-service";
 
 const updateStatusSchema = z.object({
   status: z.enum(["pending", "funded", "active", "repaid", "defaulted", "cancelled"]),
@@ -15,7 +15,7 @@ type RouteParams = {
 
 export async function GET(_: Request, { params }: RouteParams) {
   const { id } = await params;
-  const loan = phase2MockDb.getLoanById(id);
+  const loan = await dbService.getLoanById(id);
 
   if (!loan) {
     return NextResponse.json(
@@ -45,7 +45,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     );
   }
 
-  const updated = phase2MockDb.updateLoanStatus(id, parsed.data.status);
+  const updated = await dbService.updateLoanStatus(id, parsed.data.status);
 
   if (!updated) {
     return NextResponse.json(

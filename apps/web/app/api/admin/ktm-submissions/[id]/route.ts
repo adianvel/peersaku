@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { phase2MockDb } from "@/lib/server/mock-db";
+import { dbService } from "@/lib/server/db-service";
 
 const updateSchema = z.object({
   verification: z.enum(["pending", "approved", "rejected"]),
@@ -28,7 +28,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     );
   }
 
-  const updated = phase2MockDb.updateKtmSubmissionVerification(id, parsed.data.verification);
+  const updated = await dbService.updateKtmVerification(id, parsed.data.verification);
 
   if (!updated) {
     return NextResponse.json(

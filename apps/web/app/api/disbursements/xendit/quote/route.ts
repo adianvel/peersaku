@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { phase2MockDb } from "@/lib/server/mock-db";
+import { dbService } from "@/lib/server/db-service";
 
 const quoteSchema = z.object({
   amountIdr: z.number().positive(),
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   const netIdr = parsed.data.amountIdr - feeIdr;
   const usdcRequired = Number((parsed.data.amountIdr / parsed.data.usdcIdrRate).toFixed(2));
 
-  phase2MockDb.appendAuditEvent({
+  await dbService.appendAuditEvent({
     source: "xendit",
     type: "quote.created",
     payload: {
@@ -50,6 +50,6 @@ export async function POST(request: Request) {
       usdcRequired,
       exchangeRate: parsed.data.usdcIdrRate,
     },
-    message: "Quote disbursement sandbox berhasil dibuat (mock mode).",
+    message: "Quote disbursement berhasil dibuat.",
   });
 }

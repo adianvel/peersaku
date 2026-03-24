@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 
-import { phase2MockDb } from "@/lib/server/mock-db";
+import { dbService } from "@/lib/server/db-service";
 
 export async function GET() {
+  const summary = await dbService.getAnalyticsSummary();
   return NextResponse.json({
     ok: true,
-    data: phase2MockDb.getAnalyticsSummary(),
+    data: summary,
   });
 }

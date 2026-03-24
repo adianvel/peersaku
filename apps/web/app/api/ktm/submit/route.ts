@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { phase2MockDb } from "@/lib/server/mock-db";
+import { dbService } from "@/lib/server/db-service";
 
 const submitKtmSchema = z.object({
   userId: z.string().uuid(),
@@ -26,9 +26,9 @@ export async function POST(request: Request) {
     );
   }
 
-  const userExists = phase2MockDb.listUsers().some((user) => user.id === parsed.data.userId);
+  const user = await dbService.findUserById(parsed.data.userId);
 
-  if (!userExists) {
+  if (!user) {
     return NextResponse.json(
       {
         ok: false,
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const submission = phase2MockDb.createKtmSubmission(parsed.data);
+  const submission = await dbService.createKtmSubmission(parsed.data);
 
   return NextResponse.json(
     {

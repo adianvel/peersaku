@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { phase2MockDb } from "@/lib/server/mock-db";
+import { dbService } from "@/lib/server/db-service";
 
 const heliusEventSchema = z.object({
   type: z.string().min(2),
@@ -28,17 +28,17 @@ export async function POST(request: Request) {
 
   const events = Array.isArray(parsed.data) ? parsed.data : [parsed.data];
 
-  events.forEach((event) => {
-    phase2MockDb.appendAuditEvent({
+  for (const event of events) {
+    await dbService.appendAuditEvent({
       source: "helius",
       type: event.type,
       payload: event,
     });
-  });
+  }
 
   return NextResponse.json({
     ok: true,
     received: events.length,
-    message: "Webhook event tersimpan (mock mode).",
+    message: "Webhook event tersimpan.",
   });
 }

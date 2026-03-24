@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { phase2MockDb } from "@/lib/server/mock-db";
+import { dbService } from "@/lib/server/db-service";
 
 const createLoanSchema = z.object({
   borrowerId: z.string().uuid(),
@@ -13,9 +13,10 @@ const createLoanSchema = z.object({
 });
 
 export async function GET() {
+  const loans = await dbService.listLoans();
   return NextResponse.json({
     ok: true,
-    data: phase2MockDb.listLoans(),
+    data: loans,
   });
 }
 
@@ -34,7 +35,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const borrower = phase2MockDb.listUsers().find((user) => user.id === parsed.data.borrowerId);
+  const borrower = await dbService.findUserById(parsed.data.borrowerId);
 
   if (!borrower) {
     return NextResponse.json(
@@ -56,7 +57,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const loan = phase2MockDb.createLoan(parsed.data);
+  const loan = await dbService.createLoan(parsed.data);
 
   return NextResponse.json(
     {

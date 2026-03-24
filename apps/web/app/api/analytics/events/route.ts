@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { phase2MockDb } from "@/lib/server/mock-db";
+import { dbService } from "@/lib/server/db-service";
 
 const analyticsEventSchema = z.object({
   name: z.enum([
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const event = phase2MockDb.appendAnalyticsEvent(parsed.data);
+  const event = await dbService.appendAnalyticsEvent(parsed.data);
 
   return NextResponse.json(
     {

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { phase2MockDb } from "@/lib/server/mock-db";
+import { dbService } from "@/lib/server/db-service";
 
 const registerSchema = z.object({
   email: z.string().email(),
@@ -25,9 +25,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const existing = phase2MockDb
-    .listUsers()
-    .find((user) => user.email.toLowerCase() === parsed.data.email.toLowerCase());
+  const existing = await dbService.findUserByEmail(parsed.data.email);
 
   if (existing) {
     return NextResponse.json(
@@ -39,9 +37,9 @@ export async function POST(request: Request) {
     );
   }
 
-  const user = phase2MockDb.createUser(parsed.data);
+  const user = await dbService.createUser(parsed.data);
 
-  phase2MockDb.appendAuditEvent({
+  await dbService.appendAuditEvent({
     source: "auth",
     type: "register.email",
     payload: {
@@ -55,7 +53,7 @@ export async function POST(request: Request) {
     {
       ok: true,
       data: user,
-      message: "Registrasi berhasil (mock mode).",
+      message: "Registrasi berhasil.",
     },
     { status: 201 },
   );

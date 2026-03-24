@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { phase2MockDb } from "@/lib/server/mock-db";
+import { dbService } from "@/lib/server/db-service";
 
 const verifySchema = z.object({
   walletAddress: z.string().min(32).max(64),
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const expectedNonce = phase2MockDb.consumeSiwsNonce(parsed.data.walletAddress);
+  const expectedNonce = await dbService.consumeSiwsNonce(parsed.data.walletAddress);
 
   if (!expectedNonce || expectedNonce !== parsed.data.nonce) {
     return NextResponse.json(
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     );
   }
 
-  phase2MockDb.appendAuditEvent({
+  await dbService.appendAuditEvent({
     source: "auth",
     type: "siws.verified",
     payload: {
