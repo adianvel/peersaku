@@ -1,0 +1,1104 @@
+{
+  "address": "Gf97wGLR8bKDH19uMMYJzaon6T9GCwgtpzxp7yUYHz68",
+  "metadata": {
+    "name": "peersaku_lending",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "PeerSaku lending program"
+  },
+  "instructions": [
+    {
+      "name": "cancel_loan",
+      "discriminator": [
+        214,
+        125,
+        161,
+        106,
+        51,
+        186,
+        69,
+        148
+      ],
+      "accounts": [
+        {
+          "name": "borrower",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "loan",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  97,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "loan.borrower",
+                "account": "LoanRequest"
+              },
+              {
+                "kind": "account",
+                "path": "loan.loan_seed",
+                "account": "LoanRequest"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "create_loan",
+      "discriminator": [
+        166,
+        131,
+        118,
+        219,
+        138,
+        218,
+        206,
+        140
+      ],
+      "accounts": [
+        {
+          "name": "borrower",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "loan",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  97,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "borrower"
+              },
+              {
+                "kind": "arg",
+                "path": "loan_seed"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "loan_seed",
+          "type": "u64"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "interest_rate_bps",
+          "type": "u16"
+        },
+        {
+          "name": "tenor_days",
+          "type": "u16"
+        },
+        {
+          "name": "total_repayments",
+          "type": "u8"
+        },
+        {
+          "name": "purpose",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "disburse_loan",
+      "discriminator": [
+        115,
+        159,
+        152,
+        253,
+        201,
+        29,
+        29,
+        174
+      ],
+      "accounts": [
+        {
+          "name": "borrower",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "loan",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  97,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "loan.borrower",
+                "account": "LoanRequest"
+              },
+              {
+                "kind": "account",
+                "path": "loan.loan_seed",
+                "account": "LoanRequest"
+              }
+            ]
+          }
+        },
+        {
+          "name": "credit_profile",
+          "writable": true
+        },
+        {
+          "name": "credit_program",
+          "address": "58LeTSriTNYYvvrZotWGwercniqsAoNEovq9sr1AJXyF"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "fund_loan",
+      "discriminator": [
+        50,
+        221,
+        51,
+        13,
+        3,
+        142,
+        116,
+        215
+      ],
+      "accounts": [
+        {
+          "name": "lender",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "loan",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  97,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "loan.borrower",
+                "account": "LoanRequest"
+              },
+              {
+                "kind": "account",
+                "path": "loan.loan_seed",
+                "account": "LoanRequest"
+              }
+            ]
+          }
+        },
+        {
+          "name": "funding",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  102,
+                  117,
+                  110,
+                  100,
+                  105,
+                  110,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "loan"
+              },
+              {
+                "kind": "account",
+                "path": "lender"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "platform_fee_bps",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "mark_default",
+      "discriminator": [
+        182,
+        231,
+        123,
+        132,
+        66,
+        208,
+        137,
+        139
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "loan",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  97,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "loan.borrower",
+                "account": "LoanRequest"
+              },
+              {
+                "kind": "account",
+                "path": "loan.loan_seed",
+                "account": "LoanRequest"
+              }
+            ]
+          }
+        },
+        {
+          "name": "credit_profile",
+          "writable": true
+        },
+        {
+          "name": "credit_program",
+          "address": "58LeTSriTNYYvvrZotWGwercniqsAoNEovq9sr1AJXyF"
+        },
+        {
+          "name": "credit_program_authority_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  114,
+                  101,
+                  100,
+                  105,
+                  116,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "repay_loan",
+      "discriminator": [
+        224,
+        93,
+        144,
+        77,
+        61,
+        17,
+        137,
+        54
+      ],
+      "accounts": [
+        {
+          "name": "borrower",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "loan",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  97,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "loan.borrower",
+                "account": "LoanRequest"
+              },
+              {
+                "kind": "account",
+                "path": "loan.loan_seed",
+                "account": "LoanRequest"
+              }
+            ]
+          }
+        },
+        {
+          "name": "credit_profile",
+          "writable": true
+        },
+        {
+          "name": "credit_program",
+          "address": "58LeTSriTNYYvvrZotWGwercniqsAoNEovq9sr1AJXyF"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "CreditProfile",
+      "discriminator": [
+        155,
+        31,
+        253,
+        22,
+        211,
+        62,
+        131,
+        148
+      ]
+    },
+    {
+      "name": "LoanFunding",
+      "discriminator": [
+        249,
+        231,
+        165,
+        162,
+        149,
+        61,
+        160,
+        120
+      ]
+    },
+    {
+      "name": "LoanRequest",
+      "discriminator": [
+        244,
+        184,
+        133,
+        50,
+        20,
+        37,
+        31,
+        209
+      ]
+    },
+    {
+      "name": "ProgramAuthorityConfig",
+      "discriminator": [
+        3,
+        130,
+        179,
+        120,
+        214,
+        149,
+        97,
+        100
+      ]
+    },
+    {
+      "name": "ProtocolConfig",
+      "discriminator": [
+        207,
+        91,
+        250,
+        28,
+        152,
+        179,
+        215,
+        209
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "LoanCancelledEvent",
+      "discriminator": [
+        162,
+        206,
+        190,
+        193,
+        137,
+        19,
+        43,
+        119
+      ]
+    },
+    {
+      "name": "LoanCreatedEvent",
+      "discriminator": [
+        200,
+        93,
+        57,
+        110,
+        86,
+        251,
+        241,
+        162
+      ]
+    },
+    {
+      "name": "LoanDefaultedEvent",
+      "discriminator": [
+        192,
+        47,
+        240,
+        79,
+        153,
+        221,
+        70,
+        243
+      ]
+    },
+    {
+      "name": "LoanDisbursedEvent",
+      "discriminator": [
+        215,
+        120,
+        128,
+        57,
+        44,
+        126,
+        245,
+        195
+      ]
+    },
+    {
+      "name": "LoanFundedEvent",
+      "discriminator": [
+        151,
+        72,
+        230,
+        134,
+        129,
+        131,
+        61,
+        62
+      ]
+    },
+    {
+      "name": "LoanRepaidEvent",
+      "discriminator": [
+        43,
+        184,
+        130,
+        208,
+        51,
+        54,
+        155,
+        249
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidAmount",
+      "msg": "Loan amount must be greater than zero"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidInterestRate",
+      "msg": "Interest rate is outside allowed range"
+    },
+    {
+      "code": 6002,
+      "name": "InvalidTenor",
+      "msg": "Tenor must be greater than zero"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidRepaymentSchedule",
+      "msg": "Repayment schedule must have at least one installment"
+    },
+    {
+      "code": 6004,
+      "name": "PurposeTooLong",
+      "msg": "Purpose exceeds maximum allowed length"
+    },
+    {
+      "code": 6005,
+      "name": "MathOverflow",
+      "msg": "Math overflow"
+    },
+    {
+      "code": 6006,
+      "name": "LoanNotFundable",
+      "msg": "Loan is not fundable"
+    },
+    {
+      "code": 6007,
+      "name": "OverFunding",
+      "msg": "Funding amount exceeds requested loan amount"
+    },
+    {
+      "code": 6008,
+      "name": "LoanNotReadyToDisburse",
+      "msg": "Loan is not ready for disbursement"
+    },
+    {
+      "code": 6009,
+      "name": "LoanNotActive",
+      "msg": "Loan is not active"
+    },
+    {
+      "code": 6010,
+      "name": "LoanNotCancellable",
+      "msg": "Loan is not cancellable"
+    },
+    {
+      "code": 6011,
+      "name": "LoanAlreadyFunded",
+      "msg": "Loan already has funding"
+    },
+    {
+      "code": 6012,
+      "name": "Unauthorized",
+      "msg": "Only protocol admin can execute this instruction"
+    },
+    {
+      "code": 6013,
+      "name": "MissingRepaymentSchedule",
+      "msg": "Repayment schedule is missing"
+    },
+    {
+      "code": 6014,
+      "name": "GracePeriodNotElapsed",
+      "msg": "Default grace period has not elapsed"
+    },
+    {
+      "code": 6015,
+      "name": "InvalidPlatformFee",
+      "msg": "Invalid platform fee"
+    },
+    {
+      "code": 6016,
+      "name": "CreditProfileOwnerMismatch",
+      "msg": "Credit profile owner does not match borrower"
+    }
+  ],
+  "types": [
+    {
+      "name": "CreditProfile",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "student_nft",
+            "type": "pubkey"
+          },
+          {
+            "name": "score",
+            "type": "u16"
+          },
+          {
+            "name": "total_loans",
+            "type": "u16"
+          },
+          {
+            "name": "loans_repaid",
+            "type": "u16"
+          },
+          {
+            "name": "loans_defaulted",
+            "type": "u16"
+          },
+          {
+            "name": "total_borrowed",
+            "type": "u64"
+          },
+          {
+            "name": "total_repaid",
+            "type": "u64"
+          },
+          {
+            "name": "on_time_payments",
+            "type": "u16"
+          },
+          {
+            "name": "late_payments",
+            "type": "u16"
+          },
+          {
+            "name": "last_updated",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LoanCancelledEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "loan",
+            "type": "pubkey"
+          },
+          {
+            "name": "borrower",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LoanCreatedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "loan",
+            "type": "pubkey"
+          },
+          {
+            "name": "borrower",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "interest_rate_bps",
+            "type": "u16"
+          },
+          {
+            "name": "tenor_days",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LoanDefaultedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "loan",
+            "type": "pubkey"
+          },
+          {
+            "name": "borrower",
+            "type": "pubkey"
+          },
+          {
+            "name": "defaulted_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LoanDisbursedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "loan",
+            "type": "pubkey"
+          },
+          {
+            "name": "borrower",
+            "type": "pubkey"
+          },
+          {
+            "name": "disbursed_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LoanFundedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "loan",
+            "type": "pubkey"
+          },
+          {
+            "name": "lender",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "total_funded",
+            "type": "u64"
+          },
+          {
+            "name": "fully_funded",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LoanFunding",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "loan",
+            "type": "pubkey"
+          },
+          {
+            "name": "lender",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "expected_return",
+            "type": "u64"
+          },
+          {
+            "name": "returned_amount",
+            "type": "u64"
+          },
+          {
+            "name": "funded_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LoanRepaidEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "loan",
+            "type": "pubkey"
+          },
+          {
+            "name": "borrower",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "total_repaid",
+            "type": "u64"
+          },
+          {
+            "name": "fully_repaid",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LoanRequest",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "loan_seed",
+            "type": "u64"
+          },
+          {
+            "name": "borrower",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "funded_amount",
+            "type": "u64"
+          },
+          {
+            "name": "total_repaid_amount",
+            "type": "u64"
+          },
+          {
+            "name": "interest_rate_bps",
+            "type": "u16"
+          },
+          {
+            "name": "tenor_days",
+            "type": "u16"
+          },
+          {
+            "name": "purpose",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "LoanStatus"
+              }
+            }
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "funded_at",
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "disbursed_at",
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "next_repayment",
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "repayments_made",
+            "type": "u8"
+          },
+          {
+            "name": "total_repayments",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LoanStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Pending"
+          },
+          {
+            "name": "Funded"
+          },
+          {
+            "name": "Active"
+          },
+          {
+            "name": "Repaid"
+          },
+          {
+            "name": "Defaulted"
+          },
+          {
+            "name": "Cancelled"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProgramAuthorityConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProtocolConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "platform_fee_bps",
+            "type": "u16"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

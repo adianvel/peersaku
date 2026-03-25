@@ -6,22 +6,29 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-peersaku_lending = "Peer111111111111111111111111111111111111111"
-peersaku_credit = "Peer222222222222222222222222222222222222222"
+peersaku_credit = "58LeTSriTNYYvvrZotWGwercniqsAoNEovq9sr1AJXyF"
+peersaku_lending = "Gf97wGLR8bKDH19uMMYJzaon6T9GCwgtpzxp7yUYHz68"
+
+[programs.devnet]
+peersaku_credit = "58LeTSriTNYYvvrZotWGwercniqsAoNEovq9sr1AJXyF"
+peersaku_lending = "Gf97wGLR8bKDH19uMMYJzaon6T9GCwgtpzxp7yUYHz68"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "localnet"
 wallet = "~/.config/solana/id.json"
-
-[test]
-startup_wait = 60000
-
-[test.validator]
-ledger = ".anchor-ledger"
-bind_address = "127.0.0.1"
 
 [scripts]
 test = "pnpm mocha tests/**/*.js"
+
+[test]
+startup_wait = 60000
+shutdown_wait = 2000
+upgradeable = false
+
+[test.validator]
+bind_address = "127.0.0.1"
+ledger = ".anchor-ledger"
+rpc_port = 8899

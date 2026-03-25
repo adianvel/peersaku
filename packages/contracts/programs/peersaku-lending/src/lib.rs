@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use peersaku_credit::{self, program::PeersakuCredit};
 
-declare_id!("Peer111111111111111111111111111111111111111");
+declare_id!("Gf97wGLR8bKDH19uMMYJzaon6T9GCwgtpzxp7yUYHz68");
 
 #[program]
 pub mod peersaku_lending {
