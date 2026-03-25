@@ -90,13 +90,13 @@ export async function createKtmSubmission(input: {
   major: string;
   studentIdNum: string;
   enrollmentYear: number;
+  ktmImageUrl: string;
+  selfieUrl: string;
 }) {
   const [submission] = await db
     .insert(studentProfiles)
     .values({
       ...input,
-      ktmImageUrl: "pending-upload",
-      selfieUrl: "pending-upload",
       verification: "pending",
     })
     .returning();
@@ -107,11 +107,29 @@ export async function listKtmSubmissions() {
   return db.select().from(studentProfiles);
 }
 
+export async function getKtmSubmissionById(id: string) {
+  const [submission] = await db
+    .select()
+    .from(studentProfiles)
+    .where(eq(studentProfiles.id, id))
+    .limit(1);
+  return submission ?? null;
+}
+
 export async function updateKtmVerification(id: string, verification: string) {
   const now = verification === "approved" ? new Date() : undefined;
   const [updated] = await db
     .update(studentProfiles)
     .set({ verification, verifiedAt: now })
+    .where(eq(studentProfiles.id, id))
+    .returning();
+  return updated ?? null;
+}
+
+export async function updateStudentNftMint(id: string, nftMintAddress: string) {
+  const [updated] = await db
+    .update(studentProfiles)
+    .set({ studentNftMint: nftMintAddress })
     .where(eq(studentProfiles.id, id))
     .returning();
   return updated ?? null;
@@ -227,7 +245,9 @@ export const dbService = {
   updateLoanStatus,
   createKtmSubmission,
   listKtmSubmissions,
+  getKtmSubmissionById,
   updateKtmVerification,
+  updateStudentNftMint,
   setSiwsNonce,
   consumeSiwsNonce,
   appendAuditEvent,
